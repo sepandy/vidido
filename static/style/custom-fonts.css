@@ -5,10 +5,10 @@
 
 @font-face {
     font-family: subtitle-font;
-    src: url(bahnschrift.ttf);
+    src: url('bahnschrift.ttf');
 }
 
 @font-face {
     font-family: title-font;
-    src: url(baveuse3d.ttf);
+    src: url('baveuse3d.ttf');
 }

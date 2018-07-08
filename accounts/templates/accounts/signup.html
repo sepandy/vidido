@@ -1,22 +1,23 @@
 {% load bootstrap4 %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <link rel="stylesheet" href="custom-fonts.css">
-    <link rel="stylesheet" href="custom-properties.css">
+    <link rel="stylesheet" href="{%static "style/custom-properties.css"%}">
+    <link rel="stylesheet" href="{%static "style/custom-fonts.css"%}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
     <meta charset="UTF-8">
     <title>vidio SignUp</title>
 </head>
-<body>
-    <div class="container center-content row">
-        <div class="col-md-6 bg-light">
+<body style="background-color: orchid">
+    <div class=" center-content row">
+        <div class="col-md-3 ">
 
         </div>
-        <div class="col-md-6">
-            <h2 class="text-inverse" >Sign Up</h2>
-            <div class="container center-content">
+        <div class="col-md-6 bg-light" style="    box-shadow: 5px 5px 260px #ffbef8;">
+            <h1 class="text-inverse center-content" style="color: #9e26ff;font-family: title-font" >Sign Up</h1>
+            <div class="container center-content mt-3">
                 <form method="POST">
                     {% csrf_token %}
                     {% bootstrap_form userForm %}
@@ -26,6 +27,9 @@
 
                 </form>
             </div>
+        </div>
+        <div class="col-md-3" style="background-color: orchid">
+
         </div>
     </div>
 
