@@ -9,17 +9,29 @@ justify-content: center;
 .side-col{
 border: 1px solid darkviolet;
 border-radius: 5px;
-margin-top: 2rem;
+margin-top: 0rem;
 margin-left: 15px;
 margin-right: 15px;
-padding: 5px;
+padding: 0px;
+    background-color: #eae7dc;
+        box-shadow: 1px -1px 50px #ffa3e3;
+
 }
 .whole-dashboard{
 padding: 20px;
 }
 .col-element{
 border-bottom: 1px solid darkviolet;
+        background-color: #eae7dc;
+
 }
 .profile-photo-holder{
-    width: 200px;
+    height: 200px;
+}
+.profile-photo{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 100;
+
 }

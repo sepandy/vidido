@@ -6,6 +6,7 @@ from accounts.models import Profile
 genders = [('male', 'male'), ('female' , 'female'), ('other', 'other') ,('alien', 'alien')]
 
 class SignUpForm(UserCreationForm):
+
     birthday = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     bio = forms.Textarea()
     gender = forms.CharField(max_length=10,widget=forms.Select(choices=genders))
@@ -36,7 +37,10 @@ class ProfileForm(forms.ModelForm):
                 'type': 'date'
 
             }),
-            'gender':forms.Select(choices=genders)
+            'gender':forms.Select(choices=genders),
+            'profile_photo':forms.FileInput(attrs={
+                'accept': 'image/*'
+            })
         }
 class UserForm(forms.ModelForm):
     class Meta:

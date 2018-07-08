@@ -12,18 +12,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body style="background-color: rgba(255,227,219,0.59)">
 <div class=" row whole-dashboard">
     <div class="container col-3 side-col" id="#profile">
         <div class="row">
-            <div class="container col-12 col-element profile-photo-holder" id="#imagePorfiel">
+            <div class="container p-0 col-12 profile-photo-holder" id="#imagePorfiel"
+                style="background-image: url({{ avatar.url }}) ">
+                <img class="d-flex profile-photo" src="{{ avatar.url }}">
+                <h3 class="" style="font-family: subtitle-font;">Hi {{ name }}</h3>
 
             </div>
-            <div class="container col-12 col-element" id="#display-name">
-                <h3 class="" style="font-family: subtitle-font;">Hi {{ name }}</h3>
-            </div>
-            <div class="container col-12 col-element" id="#display-bio">
-                <p class="jumbotron">{{ bio|linebreaksbr }}</p>
+{#            <div class="container col-12 col-element" id="#display-name">#}
+{#                <h3 class="" style="font-family: subtitle-font;">Hi {{ name }}</h3>#}
+{#            </div>#}
+            <div class="container col-12 col-element p-0 " id="#display-bio">
+                <p class="jumbotron"><strong>about me...</strong><br>{{ bio|linebreaksbr }}</p>
             </div>
             <div class="container col-12 col-element" id="#setings">
                 <h6 id="#setting-button"> edit profile </h6>
@@ -32,6 +35,8 @@
     </div>
 
     <div class="container col-6" id="feeds">
+
+        <img class="center-content mx-auto d-block" src="{% static "vidfeeds.svg" %}">
         <div class="container row">
             <div class="container col-12 mb-1 " id="#posts">
 

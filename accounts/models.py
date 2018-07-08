@@ -17,6 +17,7 @@ from posts.models import Post
 
 class Profile(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
+    profile_photo = models.ImageField(verbose_name="photo", null=True, blank=True)
     birthday = models.DateField(null=True)
     bio = models.TextField(max_length=500, null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)

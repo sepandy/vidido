@@ -75,6 +75,7 @@ def dashboard(request, username):
         'bio': profile.bio,
         'freinds': profile.friends.all(),
         'allusers': Profile.objects.exclude(friends__user__username__exact=user.username),
+        'avatar': profile.profile_photo,
 
     }
 
