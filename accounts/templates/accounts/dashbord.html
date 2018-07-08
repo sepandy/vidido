@@ -57,9 +57,9 @@
             <div class="container col-12" id="#userlist">
                 <h5>suggestions</h5>
                 <ul class="list-group list-group-flush">
-                    {% for friend in freinds %}
+                    {% for vid in allusers %}
                         <li class="d-flex list-group-item list-group-item-action">
-                            <a class="list-group-item-action"> {{ friend.user.username }}</a>
+                            <a class="list-group-item-action"> {{ vid.user.username }}</a>
                         </li>
                     {% endfor %}
                 </ul >
