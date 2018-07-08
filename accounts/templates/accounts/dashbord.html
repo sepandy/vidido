@@ -50,14 +50,14 @@
                 <display3>your friends</display3>
             </div>
 
-            <div class="conatiner col-12 col-element" id="#freidslist">
+            <div class="conatiner col-12 col-element p-0 " id="#freidslist">
                 <ul class="list-group list-group-flush p-0">
                     {% for friend in freinds %}
-                        <li class="d-flex list-group-item list-group-item-action p-0 " style="">
+                        <li class="d-flex list-group-item list-group-item-action p-0 " style="background-color: #eae7dc; font-size: larger">
                             {% if friend.profile_photo != null %}
                             <img class="profile-photo-thumbnail align-self-right" src="{{ friend.profile_photo.url }}">
                             {% endif %}
-                            <a class="list-group-item-action ml-2"> {{ friend.user.username }}</a>
+                            <span class="list-group-item-action "> <span class="ml-2">{{ friend.user.username }}</span></a>
                         </li>
                     {% endfor %}
                 </ul>
