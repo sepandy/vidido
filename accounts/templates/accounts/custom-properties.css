@@ -1,0 +1,8 @@
+.center-content{
+    display: flex;
+    justify-content: center;
+}
+
+.columns-style{
+    border: cornflowerblue;
+}
