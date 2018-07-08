@@ -7,7 +7,7 @@ justify-content: center;
 }
 
 .side-col{
-border: 1px solid darkviolet;
+border: 0px solid darkviolet;
 border-radius: 5px;
 margin-top: 0rem;
 margin-left: 15px;
@@ -34,4 +34,8 @@ border-bottom: 1px solid darkviolet;
     object-fit: cover;
     z-index: 100;
 
+}
+.profile-photo-thumbnail{
+       height: 100%;
+    width: 150px;
 }

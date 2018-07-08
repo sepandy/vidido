@@ -51,13 +51,13 @@
             </div>
 
             <div class="conatiner col-12 col-element" id="#freidslist">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush p-0">
                     {% for friend in freinds %}
-                        <li class="d-flex list-group-item list-group-item-action p-0 " style="height:90px;">
+                        <li class="d-flex list-group-item list-group-item-action p-0 " style="">
                             {% if friend.profile_photo != null %}
-                            <img class="profile-photo" src="{{ friend.profile_photo.url }}">
+                            <img class="profile-photo-thumbnail align-self-right" src="{{ friend.profile_photo.url }}">
                             {% endif %}
-{#                            <a class="list-group-item-action"> {{ friend.user.username }}</a>#}
+                            <a class="list-group-item-action ml-2"> {{ friend.user.username }}</a>
                         </li>
                     {% endfor %}
                 </ul>
