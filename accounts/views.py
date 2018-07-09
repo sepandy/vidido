@@ -7,6 +7,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
+
+from posts.forms import NewPostForm
+from posts.models import Post
 from . import forms
 from django.urls import reverse_lazy
 from accounts.models import Profile
@@ -69,22 +72,36 @@ def register(request):
 def dashboard(request, username):
     user = User.objects.get(username= username)
     profile = Profile.objects.get(user= user )
+    postSubmission = NewPostForm(request.POST)
     context = {
+        'profile': profile,
         'username' : user.username,
         'name': profile.name,
         'bio': profile.bio,
         'freinds': profile.friends.all(),
         'allusers': Profile.objects.exclude(friends__user__username__exact=user.username),
         'avatar': profile.profile_photo,
+        'posts' : Post.objects.all().exclude(author__user__username__in=profile.friends.all()),
+        'posting': postSubmission,
 
     }
 
     return render(request, 'accounts/dashbord.html', context)
 
+def postPublish(request):
+    if request.method == 'GET':
+        author = Profile.objects.get(username= request.GET['author'])
+        text = request.GET['text']
+        print(text)
+        post = Post(text = text, author = author)
+        post.save()
+        return HttpResponse("200")
+    else:
+        return HttpResponse('failed')
 
 @csrf_exempt
 def userLogin(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data

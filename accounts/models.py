@@ -5,15 +5,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse_lazy
 # from django.db import models as dbModel
-from posts.models import Post
 # Create your models here.
 
-
-# class User(models.User, models.PermissionsMixin, dbModel.Model):
-#     friends = dbModel.ManyToManyField(Post, related_name='Friends', db_index=True)
-#
-#     def __str__(self):
-#         return "@{}".format(self.username)
 
 class Profile(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
@@ -27,6 +20,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
 
 @receiver(post_save, sender = User)
 def update_user_profile(sender, instance, created, **kwargs):
