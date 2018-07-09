@@ -14,6 +14,6 @@ class NewPostForm(forms.ModelForm):
             'text':forms.Textarea(attrs={
                 'placeholder': "what's in your mind...",
                 'id': '#post-input-text',
-                'class': 'post-input-textarea form-control'
+                'class': 'post-input-textarea form-control center-content mb-2'
             })
         }

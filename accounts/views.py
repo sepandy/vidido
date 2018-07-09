@@ -70,6 +70,7 @@ def register(request):
 @csrf_exempt
 @login_required
 def dashboard(request, username):
+
     user = User.objects.get(username= username)
     profile = Profile.objects.get(user= user )
     postSubmission = NewPostForm(request.POST)
@@ -83,25 +84,34 @@ def dashboard(request, username):
         'avatar': profile.profile_photo,
         'posts' : Post.objects.all().exclude(author__user__username__in=profile.friends.all()),
         'posting': postSubmission,
+        # 'p':Post.objects.all().exclude(author__user__username__in=profile.friends.all())[1],
 
     }
 
     return render(request, 'accounts/dashbord.html', context)
 
+
 def postPublish(request):
+    print("hey body")
     if request.method == 'GET':
-        author = Profile.objects.get(username= request.GET['author'])
-        text = request.GET['text']
+        text = request.GET.get('text')
         print(text)
-        post = Post(text = text, author = author)
+        username = request.GET.get('author')
+        print(username)
+        print(username)
+        print('helll')
+        user = User.objects.get(username=username)
+        author = Profile.objects.get(user = user)
+        post = Post(text= text, author= author)
         post.save()
-        return HttpResponse("200")
+        return HttpResponse("success")
     else:
         return HttpResponse('failed')
 
+
 @csrf_exempt
 def userLogin(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data

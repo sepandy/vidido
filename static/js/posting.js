@@ -1,25 +1,30 @@
-const text = $('#post-input-text').val();
-const username =$('#author-username').val();
 const  submit = $('#post-submission');
-const form = $('#post-form');
-form.submit(function (event) {
+const form = document.getElementById('post-form');
+
+$('#post-form').submit(function(event) {
+    event.preventDefault();
+
+    const text = $('#post-input-text').val();
+    const username =$('#author-username').val();
     console.log(text)
-    //event.preventDefault();
+
     $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: "/submit",
         data:{
             'text': text,
-            'author': username
+            'author': username,
         },
-        url: "/submit-post",
-        success: function () {
+        success: function (data) {
             console.log('you posted');
-            text.val('')
+            text.val('');
+            console.log(data)
         },
         fail: function () {
             console.log('posting failed')
         }
-    }
-    )
+    });
 
 });
 

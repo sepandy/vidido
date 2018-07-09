@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <title>{{ username }}-dashboard</title>
 </head>
+
 <body style="background-color: rgba(255,227,219,0.59)">
  <nav class="navbar navbar-expand-lg navbar-light mb-1 " style="background-color: #800091">
   <a class="navbar-brand text-light"  href="#" style="font-family: subtitle-font"><strong>hi {{ name }}</strong></a>
@@ -49,31 +50,32 @@
     </div>
 
     <div class="container col-6" id="feeds">
-    <img class="center-content mx-auto d-block" src="{% static "vidfeeds.svg" %}">
-
-        <form class="mt-3 form-group" id="#post-form">
-            {{ posting.text }}
+    <img class="center-content mx-auto d-block mb-2" src="{% static "vidfeeds.svg" %}">
+        <form class="p-2 mt-3" method="" id="post-form" name="posts" style="background-color: #e5e3ff;">
+            <textarea name="text" form="posts" cols="40" rows="10" placeholder="what's in your mind..." id="post-input-text" class="post-input-textarea form-control center-content mb-2" maxlength="300" required=""></textarea>
             <input type="hidden" value="{{ username }}" id="#author-username">
             <input type="submit"  id="#post-submission" class="btn btn-primary" value="publish">
-            {% csrf_token %}
         </form>
+        <div class="mt-3  mx-0 center-content p-0">
 
 
-        <div class="container row" id="#timeline">
-            <div class="container col-4 mb-1 " id="#sender-image">
-
+        <div class=" row mx-0 no-gutters p-3"  id="#timeline">
+            {% for p in posts %}
+                <div class="col-3  mb-3" id="#sender-image">
+                <img src="{{ p.author.profile_photo.url }}" style="" class="profile-photo">
             </div>
-            <div class="col-8 mb-1 " id="#posts">
-                <div class="row container" id="#post-content">
-                    <div class="col-12 jumbotron" id="#post-text">
+            <div class="col-8 p-0 mb-3" id="#posts" style="background-color: #e5e3ff;">
+                    <div class=" jumbotron" id="#post-text">
+                        <h3 style="font-family: subtitle-font"><strong><strong>{{ p.author.user.username }}</strong></strong></h3>
+                        {{ p.text }}
 
                     </div>
-                </div>
             </div>
+            {% endfor %}
         </div>
     </div>
-
-    <div class="container col-3 side-col sticky" id="friends">
+    </div>
+    <div class="container col-3 side-col sticky-top" id="friends">
         <div class="row" >
             <div class="container col-12 col-element" id="#friendship-buttons">
                 <display3 style="font-family: title-font">your friends</display3>
@@ -113,10 +115,40 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id="username" value="{ username }}">{
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-<script src="{% static 'js/posting.js' %}"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+ {#<script src="{% static 'js/posting.js' %}"></script>#}
+
+<script>
+
+$('#post-form').submit(function(event) {
+    event.preventDefault();
+        console.log(document.getElementById('username').innerText);
+
+    {#console.log( $('#username').val() )#}
+    $.ajax({
+        dataType: 'json',
+        url:"{% url 'accounts:publish-post' %}",
+        data:{
+            'text': $('#post-input-text').val(),
+            'author': document.getElementById('username').innerText
+        },
+        success: function (data) {
+            console.log('you posted');
+            $('#post-input-text').val('');
+            console.log(data)
+        },
+        fail: function () {
+            console.log('posting failed')
+        }
+    });
+
+});
+
+
+</script>
 </body>
 </html>

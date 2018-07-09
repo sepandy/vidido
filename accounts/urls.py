@@ -11,5 +11,5 @@ urlpatterns = [
     path('logout/', authView.LogoutView.as_view(), name='logout'),
     path('signup/', register, name = 'signup'),
     path('dashboard/<username>/',dashboard, name= 'dashboard' ),
-    path('submit-post/', postPublish, name = 'publish-post')
+    path('submit/', postPublish, name = 'publish-post')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
