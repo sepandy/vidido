@@ -23,7 +23,7 @@
         <a class="nav-link text-light"  style="font-family: subtitle-font"href="http://127.0.0.1:8000/accounts/logout">vid-out<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light" style="font-family: subtitle-font"href="http://127.0.0.1:8000/accounts/signup">settings</a>
+        <a class="nav-link text-light" style="font-family: subtitle-font"href="http://127.0.0.1:8000/accounts/setting/{{ username }}">settings</a>
       </li>
     </ul>
   </div>
@@ -33,7 +33,12 @@
         <div class="row">
             <div class="container p-0 col-12 profile-photo-holder" id="#imagePorfiel"
                 style="background-image: url({{ avatar.url }}) ">
+
+                {% if avatar != null %}
                 <img class="d-flex profile-photo" src="{{ avatar.url }}">
+                        {% else %}
+        <img src="{% static 'facebook-avatar.jpg'  %}" class="profile-photo">
+        {% endif %}
                 <h3 class="" style="font-family: subtitle-font;">Hi {{ name }}</h3>
 
             </div>
@@ -82,31 +87,36 @@
             </div>
 
             <div class="conatiner col-12 col-element p-0 " id="#freidslist">
-                <ul class="list-group list-group-flush p-0">
+                <ul class="list-group list-group-flush p-3">
                     {% for friend in freinds %}
-                        <li class="d-flex list-group-item list-group-item-action p-0 " style="background-color: #eae7dc; font-size: x-large">
+                        <li class="d-flex list-group-item list-group-item-action p-0 mb-1" style="background-color: #eae7dc; font-size: x-large">
+                        <div class="thumbnail-holder">
+
                             {% if friend.profile_photo != null %}
                             <img class="profile-photo-thumbnail align-self-right" src="{{ friend.profile_photo.url }}">
                             {% else %}
-                            <img class="profile-photo-thumbnail align-self-right" src="{% static 'icons8-user-100.png' %}">
+                            <img class="profile-photo-thumbnail align-self-right" src="{% static 'facebook-avatar.jpg' %}">
                             {% endif %}
-                            <a class="list-group-item-action "> <span class="ml-2">{{ friend.user.username }}</span></a>
+                            <a class="list-group-item-action " href="http://127.0.0.1:8000/accounts/profile/{{ friend.user.username }}/{{ profile.user.username }}"> <span class="ml-2">{{ friend.user.username }}</span></a>
+                        </div>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
 
             <div class="container col-12 col-element" id="#userlist">
-                <h5>suggestions</h5>
-                <ul class="list-group list-group-flush p-0">
-                    {% for friend in freinds %}
-                        <li class="d-flex list-group-item list-group-item-action p-0 " style="background-color: #eae7dc; font-size: x-large">
+                <h5 style="font-family: title-font">suggestions</h5>
+                <ul class="list-group list-group-flush p-1">
+                    {% for friend in allusers %}
+                        <li class="d-flex list-group-item list-group-item-action p-0 mb-1" style="background-color: #eae7dc; font-size: x-large">
+                        <div class="thumbnail-holder">
                             {% if friend.profile_photo != null %}
-                            <img class="profile-photo-thumbnail align-self-right" src="{{ friend.profile_photo.url }}">
+                            <img class="profile-photo-thumbnail l align-self-right" src="{{ friend.profile_photo.url }}">
                             {% else %}
-                            <img class="profile-photo-thumbnail align-self-right" src="{% static 'icons8-user-100.png' %}">
+                            <img class="profile-photo-thumbnail align-self-right" src="{% static 'facebook-avatar.jpg' %}">
                             {% endif %}
-                            <a class="list-group-item-action "> <span class="ml-2">{{ friend.user.username }}</span></a>
+                            <a class="list-group-item-action " href="http://127.0.0.1:8000/accounts/profile/{{ friend.user.username }}/{{ profile.user.username }}"> <span class="ml-2">{{ friend.user.username }}</span></a>
+                        </div>
                         </li>
                     {% endfor %}
                 </ul>
@@ -115,7 +125,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="username" value="{ username }}">{
+<input type="hidden" id="username" value="{{ username }}">{
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -134,11 +144,11 @@ $('#post-form').submit(function(event) {
         url:"{% url 'accounts:publish-post' %}",
         data:{
             'text': $('#post-input-text').val(),
-            'author': document.getElementById('username').innerText
+            'author': $('#username').val()
         },
         success: function (data) {
             console.log('you posted');
-            $('#post-input-text').val('');
+            $('#post-input-text').text('');
             console.log(data)
         },
         fail: function () {

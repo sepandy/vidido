@@ -1,10 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ user.user.username }} - setting</title>
+    <link rel="stylesheet" href="{%static "style/custom-properties.css"%}">
+    <link rel="stylesheet" href="{%static "style/custom-fonts.css"%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
 </head>
 <body>
+ <nav class="navbar navbar-expand-lg navbar-light mb-1 " style="background-color: #800091">
+  <a class="navbar-brand text-light"  href="http://127.0.0.1:8000/accounts/dashboard/{{ user.user.username }}" style="font-family: subtitle-font"><strong>hi {{ you.name }}</strong></a>
 
+  <div class="collapse navbar-collapse text-light" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a class="nav-link text-light"  style="font-family: subtitle-font"href="http://127.0.0.1:8000/accounts/logout">vid-out<span class="sr-only">(current)</span></a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+     <div class=" center-content row">
+        <div class="col-md-3 ">
+
+        </div>
+        <div class="col-md-6 bg-light" style="    box-shadow: 5px 5px 260px #ffbef8;">
+        <h1 class="mt-4 center-content" style="color: #9e26ff;font-family: title-font" >BECOME A VIDIDOTIAN</h1>
+            <div class="container center-content mt-3">
+                <div class="alert d-block" id="alerts">your edit was successful</div>
+                <form id="form">
+                    <div class="form-group">
+                        <label for="id_name">Name</label>
+                        <input name="name" maxlength="50" class="form-control" placeholder="Name"id="id_name" type="text" value="{{ user.name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_birthday">Birthday</label>
+                        <input value="{{ user.birthday }}" name="birthday" class="form-control" placeholder="Birthday" title="" required="" id="id_birthday" type="date">
+                    </div>
+                    <div class="form-group"><label for="id_bio">Bio</label>
+                        <textarea name="bio" cols="40" rows="10" placeholder="biography..." maxlength="500" class="form-control" title="" id="id_bio">{{ user.bio }}</textarea></div>
+                    <div class="form-group"><label for="id_gender">Gender</label>
+                      <select name="gender" class="form-control" title="" required="" id="id_gender">
+                              <option value="" selected="{{ user.gender }}">--------</option>
+
+                              <option value="male">male</option>
+
+                              <option value="female">female</option>
+
+                              <option value="other">other</option>
+
+                              <option value="alien">alien</option>
+
+                    </select>
+                        
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="edit">
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3" style="background-color: orchid">
+
+        </div>
+    </div>
+
+ <input type="hidden" value="{{ you.user.username }}" id="you">
+ <input type="hidden" value="{{ user.user.username }}" id="username">
+ <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script>
+    $('#alerts').hide();
+    console.log($('#id_gender').text());
+    console.log('fuck')
+    $('#id_bio').val()
+    $('#form').submit(function (event) {
+        event.preventDefault()
+        console.log('cliked')
+    $.ajax({
+        url: '{% url 'accounts:editing' user.user.username %}',
+        data: {
+            'name': $('#id_name').val(),
+            'birthday': $('#id_birthday').val(),
+            'bio': $('#id_bio').val(),
+            'gender': $('#id_gender').val(),
+        },
+        success: function () {
+            console.log('success')
+            $('#alerts').show;
+
+        }
+    })
+
+})
+
+</script>
 </body>
 </html>

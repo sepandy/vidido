@@ -21,7 +21,6 @@ padding: 0px;
 padding: 20px;
 }
 .col-element{
-border-bottom: 1px solid darkviolet;
         background-color: #eae7dc;
 
 }
@@ -37,8 +36,16 @@ border-bottom: 1px solid darkviolet;
 }
 .profile-photo-thumbnail{
     height: 50px;
-    width: 100px;
+    width: 70px;
+
 }
+.thumbnail-holder{
+    width:100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+}
+
 .post-input-textarea{
     height: 100px;
     width: 100%;
