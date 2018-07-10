@@ -31,6 +31,10 @@
             <div class="container center-content mt-3">
                 <form id="form">
                     <div class="form-group">
+                        <div class="form-group">
+                            <label for="id_profile_photo">Photo</label>
+                            <input name="profile_photo" accept="image/*" class="" title="" id="id_profile_photo" type="file">
+                        </div>
                         <label for="id_name">Name</label>
                         <input name="name" maxlength="50" class="form-control" placeholder="Name"id="id_name" type="text" value="{{ user.name }}">
                     </div>

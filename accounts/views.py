@@ -49,6 +49,8 @@ def signup(request):
 
 @transaction.atomic
 def register(request):
+    if request.FILES:
+        print('file')
     if request.method == 'POST':
         userForm = UserCreationForm(request.POST)
         profileForm = ProfileForm(request.POST)
