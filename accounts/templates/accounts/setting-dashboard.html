@@ -11,7 +11,7 @@
 </head>
 <body>
  <nav class="navbar navbar-expand-lg navbar-light mb-1 " style="background-color: #800091">
-  <a class="navbar-brand text-light"  href="http://127.0.0.1:8000/accounts/dashboard/{{ user.user.username }}" style="font-family: subtitle-font"><strong>hi {{ you.name }}</strong></a>
+  <a class="navbar-brand text-light"  href="http://127.0.0.1:8000/accounts/dashboard/{{ user.user.username }}" style="font-family: subtitle-font"><strong>{{ user.name }}</strong></a>
 
   <div class="collapse navbar-collapse text-light" id="navbarNavDropdown">
     <ul class="navbar-nav">
@@ -27,9 +27,8 @@
 
         </div>
         <div class="col-md-6 bg-light" style="    box-shadow: 5px 5px 260px #ffbef8;">
-        <h1 class="mt-4 center-content" style="color: #9e26ff;font-family: title-font" >BECOME A VIDIDOTIAN</h1>
+        <h1 class="mt-4 center-content" style="color: #9e26ff;font-family: title-font" >Profile Edit</h1>
             <div class="container center-content mt-3">
-                <div class="alert d-block" id="alerts">your edit was successful</div>
                 <form id="form">
                     <div class="form-group">
                         <label for="id_name">Name</label>
@@ -61,7 +60,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-3" style="background-color: orchid">
+        <div class="col-md-3">
 
         </div>
     </div>
@@ -70,9 +69,12 @@
  <input type="hidden" value="{{ user.user.username }}" id="username">
  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script>
-    $('#alerts').hide();
+    $(document).ready(function(){
+
+    })
+
+
     console.log($('#id_gender').text());
-    console.log('fuck')
     $('#id_bio').val()
     $('#form').submit(function (event) {
         event.preventDefault()
@@ -87,8 +89,10 @@
         },
         success: function () {
             console.log('success')
-            $('#alerts').show;
+            var txt = $("<div></div>").text("your settings have been modified");
+            txt.addClass('alert alert-success d-flex d-block')
 
+            $('#form').prepend(txt)
         }
     })
 

@@ -162,7 +162,7 @@ def editProfile(request, username):
         user.birthday = birthday
         user.bio = bio
         user.gender = gender
-
+        user.save()
         return HttpResponse('success')
 
 @csrf_exempt

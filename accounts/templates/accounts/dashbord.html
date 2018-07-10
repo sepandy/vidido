@@ -49,7 +49,6 @@
                 <p class="jumbotron"><strong>about me...</strong><br>{{ bio|linebreaksbr }}</p>
             </div>
             <div class="container col-12 col-element" id="#setings">
-                <h6 id="#setting-button"> edit profile </h6>
             </div>
         </div>
     </div>
@@ -70,11 +69,12 @@
                 <img src="{{ p.author.profile_photo.url }}" style="" class="profile-photo">
             </div>
             <div class="col-8 p-0 mb-3" id="#posts" style="background-color: #e5e3ff;">
-                    <div class=" jumbotron" id="#post-text">
+                    <div class=" jumbotron mb-1" id="#post-text">
                         <h3 style="font-family: subtitle-font"><strong><strong>{{ p.author.user.username }}</strong></strong></h3>
-                        {{ p.text }}
+                        {{ p.text|linebreaksbr }}
 
                     </div>
+                    <div class="ml-3" style="font-family: subtitle-font"><i><small>{{ p.shareDate }}</small> </i></div>
             </div>
             {% endfor %}
         </div>
@@ -140,7 +140,6 @@ $('#post-form').submit(function(event) {
 
     {#console.log( $('#username').val() )#}
     $.ajax({
-        dataType: 'json',
         url:"{% url 'accounts:publish-post' %}",
         data:{
             'text': $('#post-input-text').val(),
@@ -148,8 +147,8 @@ $('#post-form').submit(function(event) {
         },
         success: function (data) {
             console.log('you posted');
-            $('#post-input-text').text('');
-            console.log(data)
+            $('#post-input-text').val('');
+            alert('post is sent');
         },
         fail: function () {
             console.log('posting failed')
