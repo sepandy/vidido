@@ -83,7 +83,8 @@ def dashboard(request, username):
     profile = Profile.objects.get(user= user )
     postSubmission = NewPostForm(request.POST)
     allusers = Profile.objects.exclude(friends__user__username__exact=user.username)
-    posts = Post.objects.filter(author__in=profile.friends.all()).all().order_by('-shareDate')
+    posts = Post.objects.filter(author__in=profile.friends.all()).all().union(Post.objects.all().filter(author__user__username= username)).order_by('-shareDate')
+
     context = {
         'profile': profile,
         'username' : user.username,

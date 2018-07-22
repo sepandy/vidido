@@ -16,7 +16,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=10, choices=[
         ('male', 'male'), ('female' , 'female'), ('other', 'other') ,('alien', 'alien')])
-    friends = models.ManyToManyField('self', db_index=True, related_name='friends')
+    friends = models.ManyToManyField('self', db_index=True, related_name='friends',)
 
     def __str__(self):
         return self.user.username
